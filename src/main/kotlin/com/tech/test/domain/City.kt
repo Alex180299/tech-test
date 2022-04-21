@@ -1,8 +1,12 @@
 package com.tech.test.domain
 
+import com.fasterxml.jackson.annotation.JsonAlias
+
 data class Main(
     val temp: Double,
+    @JsonAlias("temp_min")
     val tempMin: Double,
+    @JsonAlias("temp_max")
     val tempMax: Double
 )
 

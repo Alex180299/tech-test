@@ -20,13 +20,7 @@ class CityService(private val weatherClient: IWeatherClient, private val cityRep
         }
     }
 
-    override fun saveTemperatureCity(city: City): City {
-        return try {
-            cityRepository.get(city.name) ?: cityRepository.save(city)
-        } catch (e: Exception) {
-            cityRepository.save(city)
-        }
-    }
+    override fun saveTemperatureCity(city: City): City = cityRepository.save(city)
 
     override fun getCityWeatherAndSaveDataToRepository(cityName: String): City {
         return try {
@@ -35,7 +29,7 @@ class CityService(private val weatherClient: IWeatherClient, private val cityRep
             }
         } catch (e: Exception) {
             return try {
-                cityRepository.get(cityName) ?: throw NullPointerException()
+                cityRepository.get(cityName)
             } catch (ex: Exception) {
                 throw NullPointerException()
             }

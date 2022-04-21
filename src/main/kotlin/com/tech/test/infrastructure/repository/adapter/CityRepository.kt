@@ -15,9 +15,8 @@ class CityRepository(private val cityDao: CityDao, private val cityMapper: CityM
 
         try {
             val cityFound = getEntity(city.name)
-            cityEntity.id = cityFound.id
+            cityDao.deleteById(cityFound.id)
         } catch (e: Exception) {
-            cityEntity.id = 0
         }
 
         return cityDao.save(cityEntity).let { cityMapper.toDto(it) }
@@ -32,10 +31,12 @@ class CityRepository(private val cityDao: CityDao, private val cityMapper: CityM
     }
 
     override fun getLastTenValues(): List<City> {
-        return cityDao.findAll(
+        val cities = mutableListOf<City>()
+        cityDao.findAll(
             PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id"))
-        ).get().map {
-            cityMapper.toDto(it)
-        }.toList()
+        ).forEach {
+            cities.add(cityMapper.toDto(it))
+        }
+        return cities
     }
 }

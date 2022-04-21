@@ -94,7 +94,7 @@ internal class CityServiceTest {
         val cityResult = cityService.saveTemperatureCity(cityArg)
 
         Mockito.verify(cityRepositoryMock, Mockito.times(1)).save(cityArg)
-        Mockito.verify(cityRepositoryMock, Mockito.times(1)).get(cityArg.name)
+        Mockito.verify(cityRepositoryMock, Mockito.times(0)).get(cityArg.name)
 
         assertEquals(26.84, cityResult.temperature)
         assertEquals(24.12, cityResult.temperatureMin)
@@ -166,7 +166,7 @@ internal class CityServiceTest {
         )
         val cityResult = cityService.getCityWeatherAndSaveDataToRepository("Mexico")
 
-        Mockito.verify(cityRepositoryMock, Mockito.times(0)).save(cityArg)
+        Mockito.verify(cityRepositoryMock, Mockito.times(1)).save(cityArg)
 
         assertEquals(26.84, cityResult.temperature)
         assertEquals(24.12, cityResult.temperatureMin)

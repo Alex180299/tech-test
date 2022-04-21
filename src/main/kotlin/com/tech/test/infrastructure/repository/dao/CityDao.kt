@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CityDao : JpaRepository<CityEntity, Long> {
     fun findByNameEquals(name: String): CityEntity
+    override fun deleteById(id: Long)
 }

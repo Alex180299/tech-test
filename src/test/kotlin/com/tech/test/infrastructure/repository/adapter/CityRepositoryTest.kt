@@ -17,6 +17,7 @@ internal class CityRepositoryTest {
 
     @Test
     fun whenSaveCityData_ThenSaveToH2Database_ReturnCity() {
+        cityDao.deleteAll()
         val cityMapper = CityMapper()
         val cityRepository = CityRepository(cityDao = cityDao, cityMapper = cityMapper)
         val cityResult = cityRepository.save(
@@ -40,6 +41,7 @@ internal class CityRepositoryTest {
 
     @Test
     fun whenSaveExistentCityData_ThenReplaceCityInDB_ReturnCity() {
+        cityDao.deleteAll()
         cityDao.save(
             CityEntity(
                 id = 1,
@@ -73,6 +75,7 @@ internal class CityRepositoryTest {
 
     @Test
     fun whenGetCityData_ThenGetCityDataFromDB_ReturnCity() {
+        cityDao.deleteAll()
         cityDao.save(
             CityEntity(
                 id = 1,
@@ -94,6 +97,7 @@ internal class CityRepositoryTest {
 
     @Test
     fun whenGetLastTenCitiesData_ThenGetCitiesDataFromDB_ReturnCities() {
+        cityDao.deleteAll()
         val cities = listOf(
             CityEntity(
                 id = 0,
